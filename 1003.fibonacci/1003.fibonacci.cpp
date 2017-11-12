@@ -23,22 +23,22 @@ using namespace std;
 class Fib01Counter {
 public:
         Fib01Counter(int n) {
-                table_.resize(n + 1);
-                table_[0][0] = 1;
-                table_[0][1] = 0;
-                table_[1][0] = 0;
-                table_[1][1] = 1;
+                fib_.resize(n + 1);
+                fib_[0][0] = 1;
+                fib_[0][1] = 0;
+                fib_[1][0] = 0;
+                fib_[1][1] = 1;
                 for (int i = 2; i < n + 1; ++i) {
                         for (int j = 0; j < 2; ++j) {
-                                table_[i][j] = table_[i-1][j]+ table_[i-2][j];
+                                fib_[i][j] = fib_[i-1][j]+ fib_[i-2][j];
                         }
                 }
         }
         array<int, 2> Count(int n) {
-                return table_[n];
+                return fib_[n];
         }
 private:
-        vector<array<int, 2> > table_;
+        vector<array<int, 2> > fib_;
 };
 
 int main()
