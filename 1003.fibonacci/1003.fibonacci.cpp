@@ -16,28 +16,29 @@ int fibonacci(int n) {
 */
 #include <iostream>
 #include <vector>
-#include <utility>
+#include <array>
 
 using namespace std;
 
 class Fib01Counter {
 public:
         Fib01Counter(int n) {
-                table_.resize(n + 1, make_pair(0, 0));
-                table_[0].first = 1;
-                table_[0].second = 0;
-                table_[1].first = 0;
-                table_[1].second = 1;
+                table_.resize(n + 1);
+                table_[0][0] = 1;
+                table_[0][1] = 0;
+                table_[1][0] = 0;
+                table_[1][1] = 1;
                 for (int i = 2; i < n + 1; ++i) {
-                        table_[i].first = table_[i-1].first+ table_[i-2].first;
-                        table_[i].second = table_[i-1].second + table_[i-2].second;
+                        for (int j = 0; j < 2; ++j) {
+                                table_[i][j] = table_[i-1][j]+ table_[i-2][j];
+                        }
                 }
         }
-        pair<int, int> Count(int n) {
+        array<int, 2> Count(int n) {
                 return table_[n];
         }
 private:
-        vector<pair<int, int> > table_;
+        vector<array<int, 2> > table_;
 };
 
 int main()
@@ -51,7 +52,7 @@ int main()
                 int n;
                 cin >> n;
                 auto result = counter.Count(n);
-		cout << result.first << " " << result.second << endl;
+		cout << result[0] << " " << result[1] << endl;
 	}
 
 	return 0;
